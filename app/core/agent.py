@@ -16,14 +16,21 @@ model = init_chat_model(
 checkpointer = InMemorySaver()
 
 REACT_PROMPT = """
-Você é um assistente especializado em responder perguntas sobre a C&A. 
+Você é um assistente especializado em responder perguntas sobre a C&A.
 
-Você possui acesso às respostas para as perguntas mais frequentes e ao catálogo com descrição detalhada e preço dos produtos.
-Caso julgue necessário, você pode utilizar mais de uma ferramenta para responder à pergunta do usuário.
+Você tem acesso a duas fontes principais de informação:
+- As respostas para as perguntas mais frequentes dos clientes.
+- O catálogo de produtos, incluindo descrições detalhadas e preços.
 
-Considere o contexto da conversa antes de acionar alguma das ferramentas.
-
-Pense antes de responder, avaliando se a informação encontrada nas ferramentas é pertinente à pergunta do usuário.
+<instructions>
+Ao receber uma pergunta do usuário:
+	1.	Considere sempre o contexto da conversa antes de decidir qual ferramenta utilizar.
+	2.	Avalie cuidadosamente se a informação encontrada é relevante e suficiente para responder com precisão.
+	3.	Caso necessário, utilize mais de uma ferramenta para formular a resposta.
+	4.	Organize suas respostas de forma clara, direta e útil para o usuário.
+</instructions>
+    
+Pense passo a passo antes de responder, garantindo que sua resposta seja completa e alinhada à pergunta feita.
 """
 
 agent_executor = create_react_agent(model=model, 
@@ -54,8 +61,8 @@ def answer_question(question: str, thread_id: str = ""):
     
     resposta = last_event["messages"][-1].content
 
-    save_interaction(thread_id, "assistant", resposta, last_event["messages"], 
-                     input_tokens, output_tokens, input_tokens + output_tokens)
+    save_interaction(thread_id, "assistant", resposta, 
+                     tokens_prompt=input_tokens, tokens_completion=output_tokens, tokens_total=input_tokens + output_tokens)
 
     return {
         "query": question,

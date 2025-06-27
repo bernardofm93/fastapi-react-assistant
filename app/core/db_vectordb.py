@@ -9,7 +9,7 @@ from app.core.preprocess import load_and_process_faq, uuids_for_chunks
 client = chromadb.Client()
 collection = client.create_collection(name="sac")
 
-embeddings = OllamaEmbeddings(model="mxbai-embed-large")
+embeddings = OllamaEmbeddings(model="granite-embedding:278m")
 
 DADOS_SAC = "data/dados-sac.md"
 perguntas_chunks = load_and_process_faq(DADOS_SAC)
@@ -23,7 +23,7 @@ for i, chunk_text in enumerate(perguntas_chunks):
     )
 
 def search_sac(question: str):
-    """Busca informações sobre o serviço de atendimento ao cliente."""
+    """Busca informações sobre o serviço de atendimento ao cliente e perguntas mais frequentes."""
     embedded = embeddings.embed_query(question)
     results = collection.query(
         query_embeddings=[embedded],
@@ -45,8 +45,9 @@ for i, row in catalog.iterrows():
     )
 
 def search_proper_nouns_catalog(question):
-    """Busca de produtos no catálogo por similaridade semântica ao produto procurado pelo cliente. 
-    Os dados retornados correspondem à coluna 'description' da tabela 'produtos'. Caso necessário, a pergunta do cliente pode ser reescrita para melhorar a busca."""
+    """Busca produtos no catálogo com base na similaridade semântica em relação ao que o cliente está procurando.
+    Os dados retornados correspondem à coluna description da tabela produtos. 
+    Se julgar necessário, você pode reescrever ou reformular a pergunta do cliente para aprimorar a qualidade da busca."""
     embedded = embeddings.embed_query(question)
     results = catalog_collection.query(
         query_embeddings=[embedded],

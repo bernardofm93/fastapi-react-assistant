@@ -1,10 +1,10 @@
 # 🧠 FastAPI ReAct Assistant
 ![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue)
-![FastAPI Version](https://img.shields.io/badge/FastAPI-0.111.1-green)
-![LangChain](https://img.shields.io/badge/LangChain-0.1.20-purple)
+![FastAPI Version](https://img.shields.io/badge/FastAPI-0.115.13-green)
+![LangChain](https://img.shields.io/badge/LangChain-0.3.26-purple)
 ![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-orange)
 
-Assistente Conversacional que utiliza **ReAct Agent** para responder perguntas sobre produtos e SAC, combinando **consulta em SQL** e/ou **busca semântica**.  
+Assistente Conversacional que utiliza um **Agente ReAct** para responder perguntas sobre produtos e SAC, combinando **consulta em SQL** e/ou **busca semântica**.  
 O projeto inclui:
 
 ✅ **FastAPI** como backend HTTP  
@@ -26,28 +26,29 @@ O projeto inclui:
 
 🏃 :pushpin: Rodando localmente
 
-Antes de tudo, certifique-se de que Ollama está rodando e de que os modelos foram baixados.
+Antes de tudo, certifique-se de que o Ollama está rodando e de que os modelos foram baixados.
+
 
 📥 Clone o repositório
 
-git clone https://github.com/seu-usuario/fastapi-react-assistant.git
+        git clone https://github.com/seu-usuario/fastapi-react-assistant.git
 
 
 ⸻
 
 🧰 Instale as dependências
 
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install -r requirements.txt
 
 
 ⸻
 
 🤖 Baixe modelos no Ollama
 
-ollama pull llama3.1
-ollama pull mxbai-embed-large
+        ollama pull llama3.1
+        ollama pull mxbai-embed-large
 
 
 ⸻
@@ -56,14 +57,14 @@ ollama pull mxbai-embed-large
 
 Gera o banco de produtos (produtos.db) e popula o ChromaDB com embeddings:
 
-python -m app.db.preprocess
+        python -m app.db.preprocess
 
 
 ⸻
 
 🚀 Suba a API
 
-uvicorn app.main:app --reload
+        uvicorn app.main:app --reload
 
 Por padrão, estará disponível em:
 
@@ -78,26 +79,19 @@ http://localhost:8000
 
 Envia uma pergunta e recebe a resposta do assistente.
 
-Exemplo de body:
+Exemplo de Request body:
 
-{
-  "question": "Quais calças custam menos de 200 reais?",
-  "thread_id": "minha-conversa-123"
-}
+        {
+        "question": "Quais calças custam menos de 200 reais?",
+        "thread_id": "thread-123"
+        }
 
 
 ⸻
 
 🔹 GET /historico/{thread_id}
 
-Recupera todo o histórico da conversa.
-
-Parâmetros de query opcionais:
-	•	columns: Quais colunas retornar (role, content, timestamp, tokens_input, tokens_output)
-
-Exemplo:
-
-/historico/minha-conversa-123?columns=role&columns=content
+Recupera todo o histórico da conversa a partir do ID da thread.
 
 
 ⸻
@@ -113,13 +107,13 @@ http://localhost:8000/docs
 
 🐳 :whale: Docker
 
-Você também pode rodar tudo via Docker Compose.
+Rodando via Docker Compose.
 
 ⸻
 
 🛠️ Build da imagem
 
-docker build -t fastapi-react-assistant .
+        docker build -t fastapi-react-assistant .
 
 
 ⸻
@@ -128,7 +122,7 @@ docker build -t fastapi-react-assistant .
 
 Certifique-se que o Ollama está rodando no host e passe o .env:
 
-docker run -d --env-file .env -p 8000:8000 --name assistant fastapi-react-assistant
+        docker run -d --env-file .env -p 8000:8000 --name assistant fastapi-react-assistant
 
 
 ⸻
@@ -138,17 +132,17 @@ docker run -d --env-file .env -p 8000:8000 --name assistant fastapi-react-assist
 
 Enviar pergunta:
 
-curl -X POST "http://localhost:8000/chat/" \
-  -H "Content-Type: application/json" \
-  -d '{"question":"Quantos produtos custam abaixo de 200 reais?","thread_id":"teste"}'
+        curl -X POST "http://localhost:8000/chat/" \
+        -H "Content-Type: application/json" \
+        -d '{"question":"Quantos produtos custam abaixo de 200 reais?","thread_id":"teste"}'
 
 Consultar histórico:
 
-curl "http://localhost:8000/historico/teste
+        curl "http://localhost:8000/historico/teste
 
 
 ⸻
 
-⚠️ Observações
-	•	O Ollama precisa estar rodando localmente ou acessível no OLLAMA_BASE_URL.
-	•	Os modelos devem estar baixados previamente.
+📓 🧪 Testando em Jupyter Notebook
+
+Caso seja mais acessível, é possível realizar o teste no arquivo **teste_agente.ipynb**. 

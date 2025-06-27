@@ -15,7 +15,6 @@ def init_db():
             thread_id TEXT,
             role TEXT,
             content TEXT,
-            actions_tools TEXT,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
             tokens_prompt INTEGER,
             tokens_completion INTEGER,
