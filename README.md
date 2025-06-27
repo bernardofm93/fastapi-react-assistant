@@ -11,9 +11,41 @@ O projeto inclui:
 ✅ **LangGraph + LangChain** para criação do agente ReAct  
 ✅ **Ollama** como servidor local de modelos LLM e embeddings  
 ✅ **ChromaDB** como banco vetorial do SAC e dos nomes dos produtos  
-✅ **SQLite** para persistir histórico de conversas e catálogo de produtos  
+✅ **SQLite** para persistir histórico de conversas e catálogo de produtos
 
 ---
+
+🧩 Visão Geral
+
+O projeto implementa um ReAct Agent que combina raciocínio e ações sobre diferentes fontes de dados para responder perguntas relacionadas ao catálogo e ao serviço de atendimento ao cliente da C&A.
+
+⸻
+
+🖼️ Arquitetura do Agente
+
+A arquitetura de um agente ReAct pode ser representada por um grafo, contendo um nodo de assistente e outro de ferramentas, conforme imagem abaixo. 
+
+![alt text](image.png)
+
+O agente ReAct segue a lógica:
+	1.	Recebe a pergunta do usuário
+	2.	Analisa o contexto e o histórico
+	3.	Decide qual ou quais ferramentas utilizar
+	4.	Executa buscas SQL ou semânticas conforme necessário
+	5.	Combina e organiza a resposta final
+
+
+⸻
+
+🛠️ Ferramentas Utilizadas
+
+O agente conta com duas ferramentas principais:
+
+- Busca SQL de Produtos	Realiza consultas estruturadas na base de dados SQLite para retornar informações detalhadas sobre produtos, como preço, título e descrição. Ideal para perguntas objetivas que envolvem filtros e atributos conhecidos.
+- Busca Semântica de FAQ	Utiliza embeddings gerados via Ollama e ChromaDB para recuperar respostas por similaridade semântica. Indicada para perguntas abertas ou quando o usuário utiliza linguagem natural sem correspondência direta no catálogo.
+
+⸻
+
 
 ## 🖥️ :computer: Requisitos
 
