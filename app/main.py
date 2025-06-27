@@ -4,7 +4,7 @@ from app.api.endpoints import chat, history
 
 app = FastAPI(
     title="Assistente Inteligente",
-    description="API para responder perguntas sobre produtos e atendimento ao cliente usando LLM",
+    description="Agente Conversacional para responder perguntas sobre produtos e atendimento ao cliente.",
     version="1.0.0"
 )
 

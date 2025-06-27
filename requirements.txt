@@ -1,7 +1,7 @@
-fastapi
-uvicorn
-pandas
-langchain
-langgraph
-langchain-ollama
-chromadb
+fastapi==0.115.13
+uvicorn==0.34.3
+pandas==2.3.0
+langchain==0.3.26
+langgraph==0.4.10
+langchain-ollama==0.3.3
+chromadb==1.0.13

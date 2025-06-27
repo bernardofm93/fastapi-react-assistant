@@ -21,7 +21,6 @@ def split_faq_by_question_and_sentences(text: str) -> List[Dict]:
         question = match.group(1).strip()
         answer_block = text[start:end].strip()
 
-        # Divide a resposta pelo padrão ".\n"
         subchunks = re.split(r"\.\s*\n", answer_block)
         subchunks = [chunk.strip() for chunk in subchunks if chunk.strip()]
 
@@ -37,15 +36,16 @@ def split_faq_by_question_and_sentences(text: str) -> List[Dict]:
 
     return chunks
 
-def carregar_e_processar_faq(caminho_md: str) -> List[str]:
+def load_and_process_faq(md_filepath: str) -> List[str]:
     """
-    Lê o conteúdo do arquivo .md de SAC e retorna os chunks prontos para vetorização.
+    Lê os dados do SAC e retorna os chunks prontos para vetorização.
     """
-    with open(caminho_md, 'r', encoding='utf-8') as f:
-        conteudo = f.read()
+    with open(md_filepath, 'r', encoding='utf-8') as f:
+        content = f.read()
 
-    chunks = split_faq_by_question_and_sentences(conteudo)
+    chunks = split_faq_by_question_and_sentences(content)
     return [c['text'] for c in chunks]
 
-def gerar_uuids_para_chunks(chunks: List[str]) -> List[str]:
+def uuids_for_chunks(chunks: List[str]) -> List[str]:
+    """Gera UUIDs únicos para cada chunk de texto."""
     return [str(uuid4()) for _ in chunks]

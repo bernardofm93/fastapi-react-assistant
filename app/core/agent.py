@@ -32,6 +32,7 @@ agent_executor = create_react_agent(model=model,
                                     checkpointer=checkpointer)
 
 def answer_question(question: str, thread_id: str = ""):
+    """Responde a uma pergunta do usuário utilizando Agente ReAct."""
     config = {"configurable": {"thread_id": thread_id}}
     last_event = None
     input_tokens = 0
@@ -53,9 +54,8 @@ def answer_question(question: str, thread_id: str = ""):
     
     resposta = last_event["messages"][-1].content
 
-    save_interaction(thread_id, "assistant", resposta,
-                     tokens_prompt=input_tokens, tokens_completion=output_tokens, 
-                     tokens_total=input_tokens + output_tokens)
+    save_interaction(thread_id, "assistant", resposta, last_event["messages"], 
+                     input_tokens, output_tokens, input_tokens + output_tokens)
 
     return {
         "query": question,

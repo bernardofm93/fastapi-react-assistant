@@ -4,7 +4,8 @@ from app.db.database import conn
 router = APIRouter()
 
 @router.get("/{thread_id}")
-def obter_historico(thread_id: str):
+def get_thread_history(thread_id: str):
+    """Recupera o histórico de conversa para uma thread específica."""
     cursor = conn.cursor()
     cursor.execute("""
         SELECT role, content, timestamp FROM conversa
