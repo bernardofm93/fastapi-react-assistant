@@ -43,8 +43,8 @@ O agente conta com duas ferramentas principais:
 
 - Busca SQL de Produtos do catálogo: Realiza consultas estruturadas na base de dados SQLite para retornar informações detalhadas sobre produtos, como preço, título e descrição.
 - Busca Semântica de Produtos e SAC: Banco vetorial criado com o ChromaDB, utilizando um modelo local de embeddings do Ollama. Foram criadas duas collections distintas:
- - Catálogo: Nos casos em que o cliente não sabe o nome exato de um produto, realiza a busca por similaridade semântica entre a necessidade informada pelo cliente e as descrições dos produtos;
- - SAC: Usado para recuperar respostas às perguntas mais frequentes sobre o Serviço de Atendimento ao Consumidor, incluindo assuntos como políticas de reembolso, prazos de  entrega e devolução/troca de produtos.
+ 	- Catálogo: Nos casos em que o cliente não sabe o nome exato de um produto, realiza a busca por similaridade semântica entre a necessidade informada pelo cliente e 	as descrições dos produtos;
+ 	- SAC: Usado para recuperar respostas às perguntas mais frequentes sobre o Serviço de Atendimento ao Consumidor, incluindo assuntos como políticas de reembolso, 	prazos de entrega e devolução/troca de produtos.
 
 ⸻
 
