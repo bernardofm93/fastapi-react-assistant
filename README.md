@@ -11,13 +11,13 @@ O projeto inclui:
 ✅ **LangGraph + LangChain** para criação do agente ReAct  
 ✅ **Ollama** como servidor local de modelos LLM e embeddings  
 ✅ **ChromaDB** como banco vetorial do SAC e dos nomes dos produtos  
-✅ **SQLite** para persistir histórico de conversas e catálogo de produtos
+✅ **SQLite** para persistir histórico de conversas e armazenar o catálogo de produtos
 
 ---
 
 🧩 Visão Geral
 
-O projeto implementa um ReAct Agent que combina raciocínio e ações sobre diferentes fontes de dados para responder perguntas relacionadas ao catálogo e ao serviço de atendimento ao cliente da C&A.
+O projeto implementa um Agente ReAct que combina raciocínio e ações a partir de diferentes fontes de dados para responder perguntas relacionadas ao catálogo e ao serviço de atendimento ao cliente da C&A.
 
 ⸻
 
@@ -27,11 +27,11 @@ A arquitetura de um agente ReAct pode ser representada por um grafo, contendo um
 
 ![alt text](image.png)
 
-O agente ReAct segue a lógica:
+O agente ReAct segue a seguinte lógica:
 	1.	Recebe a pergunta do usuário
 	2.	Analisa o contexto e o histórico
-	3.	Decide qual ou quais ferramentas utilizar
-	4.	Executa buscas SQL ou semânticas conforme necessário
+	3.	Decide quais ferramentas utilizar
+	4.	Executa buscas SQL ou semânticas
 	5.	Combina e organiza a resposta final
 
 
@@ -41,8 +41,10 @@ O agente ReAct segue a lógica:
 
 O agente conta com duas ferramentas principais:
 
-- Busca SQL de Produtos	Realiza consultas estruturadas na base de dados SQLite para retornar informações detalhadas sobre produtos, como preço, título e descrição. Ideal para perguntas objetivas que envolvem filtros e atributos conhecidos.
-- Busca Semântica de FAQ	Utiliza embeddings gerados via Ollama e ChromaDB para recuperar respostas por similaridade semântica. Indicada para perguntas abertas ou quando o usuário utiliza linguagem natural sem correspondência direta no catálogo.
+- Busca SQL de Produtos do catálogo: Realiza consultas estruturadas na base de dados SQLite para retornar informações detalhadas sobre produtos, como preço, título e descrição.
+- Busca Semântica de Produtos e SAC: Banco vetorial criado com o ChromaDB, utilizando um modelo local de embeddings do Ollama. Foram criadas duas collections distintas:
+ - Catálogo: Nos casos em que o cliente não sabe o nome exato de um produto, realiza a busca por similaridade semântica entre a necessidade informada pelo cliente e as descrições dos produtos;
+ - SAC: Usado para recuperar respostas às perguntas mais frequentes sobre o Serviço de Atendimento ao Consumidor, incluindo assuntos como políticas de reembolso, prazos de  entrega e devolução/troca de produtos.
 
 ⸻
 
@@ -63,7 +65,7 @@ Antes de tudo, certifique-se de que o Ollama está rodando e de que os modelos f
 
 📥 Clone o repositório
 
-        git clone https://github.com/seu-usuario/fastapi-react-assistant.git
+        git clone https://github.com/bernardofm93/fastapi-react-assistant.git
 
 
 ⸻
@@ -80,7 +82,7 @@ Antes de tudo, certifique-se de que o Ollama está rodando e de que os modelos f
 🤖 Baixe modelos no Ollama
 
         ollama pull llama3.1
-        ollama pull mxbai-embed-large
+        ollama pull granite-embeddings:278m
 
 
 ⸻
