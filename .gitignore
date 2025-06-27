@@ -1,1 +1,67 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Environment variables
 .env
+
+# SQLite databases
+*.db
+
+# Pytest cache
+.pytest_cache/
+
+# VS Code settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# MacOS metadata
+.DS_Store
+
+# Logs
+*.log
+
+# Docker files
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+
+# Jupyter notebooks (if you end up using any)
+.ipynb_checkpoints/
+
+# Build artifacts
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
